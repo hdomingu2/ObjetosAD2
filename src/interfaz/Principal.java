@@ -6,6 +6,8 @@
 
 package interfaz;
 
+import clases.Fraccionario;
+
 /**
  *
  * @author hdomingu2
@@ -40,38 +42,52 @@ public class Principal extends javax.swing.JFrame {
         txtNumerador3 = new javax.swing.JTextField();
         txtDenominador3 = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        cmdCalcular = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        cmdLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Operaciones con fraccionarios");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Buxton Sketch", 1, 24)); // NOI18N
+        jLabel1.setText("OPERACIONES CON FRACCIONARIO");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, -1, -1));
         jPanel1.add(txtNumerador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 60, -1));
         jPanel1.add(txtDenominador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 60, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 90, 10));
 
         cmbOperacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Suma", "Resta", "Multiplicacion", "Division" }));
         jPanel1.add(cmbOperacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 70, -1));
-        jPanel1.add(txtNumerador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 60, 20));
-        jPanel1.add(txtDenominador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 60, 20));
+        jPanel1.add(txtNumerador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, 80, 30));
+        jPanel1.add(txtDenominador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 70, 30));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 90, 10));
-        jPanel1.add(txtNumerador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, 60, 20));
-        jPanel1.add(txtDenominador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 60, 20));
+
+        txtNumerador3.setEditable(false);
+        jPanel1.add(txtNumerador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 90, 30));
+
+        txtDenominador3.setEditable(false);
+        jPanel1.add(txtDenominador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 80, 30));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 90, 10));
 
-        jButton1.setText("Calcular");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, -1, -1));
+        cmdCalcular.setText("Calcular");
+        cmdCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCalcularActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, -1, -1));
 
         jLabel2.setText("=");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, -1, -1));
 
-        jButton2.setText("Borrar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, -1, -1));
+        cmdLimpiar.setText("Limpiar");
+        cmdLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLimpiarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,6 +103,45 @@ public class Principal extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(518, 281));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
+        int op,n1,n2,d1,d2;
+        Fraccionario f1,f2,f3=null;
+        
+        op = cmbOperacion.getSelectedIndex();
+        n1 = Integer.parseInt(txtNumerador1.getText());
+        d1 = Integer.parseInt(txtDenominador1.getText());
+        n2 = Integer.parseInt(txtNumerador2.getText());
+        d2 = Integer.parseInt(txtDenominador2.getText());
+        
+        f1 = new Fraccionario(n1,d1);
+        f2 = new Fraccionario(n2,d2);
+        
+        switch(op){
+            case 0:
+                f3= f1.sumar(f2);
+                break;
+                
+            case 1:
+            f3= f1.restar(f2);
+            break;
+        }
+        txtNumerador3.setText(""+f3.getNumerador());
+            txtDenominador3.setText(""+f3.getDenominador());
+    }//GEN-LAST:event_cmdCalcularActionPerformed
+
+    private void cmdLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLimpiarActionPerformed
+        txtNumerador1.setText("");
+        txtNumerador2.setText("");
+        txtNumerador3.setText("");
+        txtDenominador1.setText("");
+        txtDenominador2.setText("");
+        txtDenominador3.setText("");
+        txtNumerador1.requestFocusInWindow();
+        cmbOperacion.setSelectedIndex(0);
+        
+        
+    }//GEN-LAST:event_cmdLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,8 +180,8 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbOperacion;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton cmdCalcular;
+    private javax.swing.JButton cmdLimpiar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
