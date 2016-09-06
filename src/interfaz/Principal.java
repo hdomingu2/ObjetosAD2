@@ -6,7 +6,9 @@
 
 package interfaz;
 
+import clases.DenominadorCeroException;
 import clases.Fraccionario;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -59,7 +61,7 @@ public class Principal extends javax.swing.JFrame {
 
         cmbOperacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Suma", "Resta", "Multiplicacion", "Division" }));
         jPanel1.add(cmbOperacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 70, -1));
-        jPanel1.add(txtNumerador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, 80, 30));
+        jPanel1.add(txtNumerador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 70, 30));
         jPanel1.add(txtDenominador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 70, 30));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 90, 10));
 
@@ -113,7 +115,7 @@ public class Principal extends javax.swing.JFrame {
         d1 = Integer.parseInt(txtDenominador1.getText());
         n2 = Integer.parseInt(txtNumerador2.getText());
         d2 = Integer.parseInt(txtDenominador2.getText());
-        
+        try{
         f1 = new Fraccionario(n1,d1);
         f2 = new Fraccionario(n2,d2);
         
@@ -121,13 +123,15 @@ public class Principal extends javax.swing.JFrame {
             case 0:
                 f3= f1.sumar(f2);
                 break;
-                
             case 1:
             f3= f1.restar(f2);
             break;
         }
         txtNumerador3.setText(""+f3.getNumerador());
             txtDenominador3.setText(""+f3.getDenominador());
+        }catch(DenominadorCeroException e){
+            JOptionPane.showMessageDialog(null,e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_cmdCalcularActionPerformed
 
     private void cmdLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLimpiarActionPerformed
